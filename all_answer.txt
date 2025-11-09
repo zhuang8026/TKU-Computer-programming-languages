@@ -1,0 +1,172 @@
+
+// 題目1：讀入兩個正整數 a、b（需 a <= b；否則持續重新讀入）。
+// 輸出 [a,b] 之間奇數的「數量」與「平均值」（到小數點後兩位）。
+// 若沒有奇數則輸出「無奇數」。
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    int i, count = 0, sum = 0;
+
+    // 要求 a <= b
+    do {
+        printf("輸入兩個正整數 a b：");
+        scanf("%d%d", &a, &b);
+    } while (a <= 0 || b <= 0 || a > b);
+
+    for (i = a; i <= b; i++) {
+        if (i % 2 != 0) {   // 奇數判斷（無法被2整除）
+            count++; // 計算奇數數量
+            sum += i;
+            printf("%d ", sum);
+        }
+    }
+
+    if (count == 0)
+        printf("無奇數\n");
+    else
+        printf("奇數數量=%d 平均值=%d\n", count, sum / count);
+
+    return 0;
+}
+
+// 題目2：讀入 n(n>=3) 與接著的 n 個整數，輸出第二小與第二大（需與最小/最大不同值）。
+// 若所有值相同或無法找出，輸出「無法找出第二大/第二小」。
+#include <stdio.h>
+#define MAX_SIZE 100
+
+int main() {
+    int n;
+    int i, j, temp;
+    int list[MAX_SIZE]; // 預設最多 100 個整數
+
+    printf("輸入整數 n (n>=3)：");
+    scanf("%d", &n);
+    if (n < 3) return 0;
+
+    printf("輸入 %d 個整數：\n", n);
+    for (i = 0; i < n; i++)
+        scanf("%d", &list[i]);
+
+    // 氣泡排序
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - 1 - i; j++) {
+            if (list[j] > list[j + 1]) {
+                temp = list[j];
+                list[j] = list[j + 1];
+                list[j + 1] = temp;
+            }
+        }
+    }
+
+    // 找第二小（不同於最小）
+    int second_min = -1, second_max = -1;
+    for (i = 1; i < n; i++) {
+        if (list[i] != list[0]) {
+            second_min = list[i];
+            break;
+        }
+    }
+
+    // 找第二大（不同於最大）
+    for (i = n - 2; i >= 0; i--) {
+        if (list[i] != list[n - 1]) {
+            second_max = list[i];
+            break;
+        }
+    }
+
+    if (second_min == -1 || second_max == -1)
+        printf("無法找出第二大/第二小\n");
+    else
+        printf("第二小=%d 第二大=%d\n", second_min, second_max);
+
+    return 0;
+}
+
+// 題目3：讀入整數 n。若 n<=0 印「程式結束」；
+// 否則判斷是否為完全平方數，分別輸出「n 是完全平方數」或「n 不是完全平方數」。
+// 完全平方數是 「某個整數 × 自己」（ex: 3x3=9(yes), ?x? = 8(no)）
+#include <stdio.h>
+#include <stdbool.h>
+
+int main() {
+    int n;
+
+    printf("輸入整數 n：");
+    scanf("%d", &n);
+
+    if (n <= 0) {
+        printf("程式結束\n");
+        return 0;
+    }
+
+    bool is_square = false; 
+    for (int i = 1; i * i <= n; i++) {
+        if (i * i == n) {
+            is_square = true;
+            break;
+        }
+    }
+
+    if (is_square)
+        printf("%d 是完全平方數\n", n);
+    else
+        printf("%d 不是完全平方數\n", n);
+
+    return 0;
+}
+
+// 題目4：輸入一串整數，以 0 作為結束標記；只累加負數的總和。
+// 若沒有負數則輸出「無負數」，否則輸出總和。
+#include <stdio.h>
+
+int main() {
+    int num;
+    int sum = 0; // 最後要輸出的總數
+    int count = 0;   // 記錄有幾個負數
+
+    printf("請輸入整數序列 (以 0 結束)：\n");
+    scanf("%d", &num); 
+
+    while (num != 0) { // 先去除 0
+        if (num < 0) { // 判斷是否為負數
+            sum += num; // 負數總和
+            count++; // 記錄負數個數
+        }
+        scanf("%d", &num);  // 再輸入下一個
+    }
+
+    if (count == 0)
+        printf("無負數\n");
+    else
+        printf("負數總和=%d\n", sum);
+
+    return 0;
+}
+
+
+// 題目5：讀入正整數 n，輸出右對齊的星號三角形（共 n 行）。
+//     * 
+//    ** 
+//   *** 
+//  ****
+#include <stdio.h>
+
+int main() {
+    int n;
+    int i, j;
+
+    printf("請輸入正整數 n：");
+    scanf("%d", &n);
+
+    for (i = 1; i <= n; i++) { // 判斷一共有幾行
+        for (j = 1; j <= n - i; j++) // ex:2 -> 1 <= 2-1 ? '': return
+            printf(" ");  // 空白
+        for (j = 1; j <= i; j++) // ex:2 -> 1 <= 1 ? '*': return
+            printf("*"); // 星號
+        printf("\n"); // 換行
+    }
+
+    return 0;
+}

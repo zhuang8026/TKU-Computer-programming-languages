@@ -1,3 +1,5 @@
+// 題目2：讀入 n(n>=3) 與接著的 n 個整數，輸出第二小與第二大（需與最小/最大不同值）。
+// 若所有值相同或無法找出，輸出「無法找出第二大/第二小」。
 #include <stdio.h>
 #define MAX_SIZE 100
 
@@ -6,11 +8,11 @@ int main() {
     int i, j, temp;
     int list[MAX_SIZE]; // 預設最多 100 個整數
 
-    printf("請輸入整數 n (n>=3)：");
+    printf("輸入整數 n (n>=3)：");
     scanf("%d", &n);
     if (n < 3) return 0;
 
-    printf("請輸入 %d 個整數：\n", n);
+    printf("輸入 %d 個整數：\n", n);
     for (i = 0; i < n; i++)
         scanf("%d", &list[i]);
 
