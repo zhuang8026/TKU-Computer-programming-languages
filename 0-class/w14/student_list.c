@@ -35,7 +35,7 @@ typedef struct Student {
  *  不像陣列必須事先宣告固定大小。
 */
 
-/* 輔助函式：動態配置一個新節點並填入資料，供 add_student() 呼叫 */
+/* 輔助 add_student()：動態配置一個新節點並填入資料*/
 static Student *create_node(const char *id, const char *name)
 {
     Student *node = malloc(sizeof(Student));    /* heap 動態配置，使節點數不受固定陣列大小限制 */
@@ -84,8 +84,7 @@ static Student *query_student(Student *head, const char *id)
     return NULL;
 }
 
-/* ── 顯示輔助函式 ── */
-
+/* ── 顯示所有資料 (查詢 -> 單筆打印) ── */
 static void print_student(const Student *s)
 {
     printf("  學號: %-15s  姓名: %s\n", s->id, s->name);
@@ -151,7 +150,7 @@ static void free_list(Student *head)
  *  add   呼叫 add_student()    → 新增一筆學生
  *  del   呼叫 delete_student() → 依學號刪除
  *  query 呼叫 query_student()  → 依學號查詢
- *  list  呼叫 list_all()       → 列出全部資料
+ *  list  呼叫 list_all()       → 列出所有學生
  *  save  呼叫 save_to_file()   → 儲存至檔案
  *  quit  結束程式
  * ════════════════════════════════════════════════════════ */
@@ -172,10 +171,8 @@ int main(void)
 {
     /*
      * [需求4] 測試資料輸入說明：
-     *   第 1 筆請輸入自己的學號與英文姓名，例如：
-     *     學號: S11234567   姓名: William-Chuang
-     *   接著再輸入至少 2 筆其他同學資料，共 ≥ 3 筆，
-     *   用以驗證新增、刪除、查詢、儲存是否均正常運作。
+     *   第 1 筆請輸入自己的學號與英文姓名，例如： 學號: S11234567   姓名: William-Chuang
+     *   接著再輸入至少 2 筆其他同學資料，共 ≥ 3 筆，用以驗證新增、刪除、查詢、儲存是否均正常運作。
      */
     Student *head = NULL;
     char cmd[16], id[MAX_ID], name[MAX_NAME];
